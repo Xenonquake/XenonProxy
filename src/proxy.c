@@ -22,7 +22,7 @@ typedef struct proxy_context {
 
 // Thread-safe connection tracking
 static _Atomic size_t active_connections = 0;
-static proxy_context_t *global_context = NULL;
+static proxy_context_t *global_context = nullptr;
 
 // Initialize proxy with secure defaults
 int proxy_start(void) {
@@ -103,5 +103,5 @@ void proxy_stop(void) {
     }
 
     free(global_context);
-    global_context = NULL;
+    global_context = nullptr;
 }
