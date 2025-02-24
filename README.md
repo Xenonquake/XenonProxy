@@ -5,9 +5,9 @@ XenonProxy is a modern proxy application designed for educational purposes, focu
 
 Features/Plans
 
-    C23 Compliance: Utilizes modern C23 features such as nullptr for safer and more readable code.
-    Encryption: Implements robust encryption methods to secure data transmission.
-    Educational: Serves as a learning tool for understanding network programming, encryption, and modern C standards.
+C23 Compliance: Utilizes modern C23 features such as nullptr for safer and more readable code.
+Encryption: Implements robust encryption methods to secure data transmission.
+Educational: Serves as a learning tool for understanding network programming, encryption, and modern C standards.
 
 Purpose
 
