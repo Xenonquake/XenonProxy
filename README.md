@@ -1,4 +1,5 @@
 XenonProxy
+
 Overview
 
 XenonProxy is a modern proxy application designed for educational purposes, focusing on implementing encryption and other networking features. The project leverages C23 standards to ensure clean, portable, and efficient code.
