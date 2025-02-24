@@ -18,4 +18,8 @@ typedef enum {
 int proxy_start(void);
 void proxy_stop(void);
 
+// C2x features: Static assertions can be used to ensure certain conditions at compile time
+// For example, ensuring that the size of proxy_error_t is as expected.
+_Static_assert(sizeof(proxy_error_t) <= sizeof(int), "proxy_error_t must fit within an int");
+
 #endif // XENONPROXY_PROXY_H
