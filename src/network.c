@@ -8,15 +8,15 @@
 
 xenon_socket_t *network_socket_create(int domain, int type, int protocol) {
     xenon_socket_t *sock = calloc(1, sizeof(xenon_socket_t));
-    if (!sock) {
-        return NULL;
+    if (sock == nullptr) {
+        return nullptr;
     }
 
     // Create socket with close-on-exec
     sock->fd = socket(domain, type | SOCK_CLOEXEC, protocol);
     if (sock->fd < 0) {
         free(sock);
-        return NULL;
+        return nullptr;
     }
 
     sock->domain = domain;
@@ -27,14 +27,14 @@ xenon_socket_t *network_socket_create(int domain, int type, int protocol) {
     int reuse = 1;
     if (setsockopt(sock->fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) < 0) {
         network_socket_close(sock);
-        return NULL;
+        return nullptr;
     }
 
     return sock;
 }
 
 void network_socket_close(xenon_socket_t *socket) {
-    if (socket) {
+    if (socket != nullptr) {
         if (socket->fd >= 0) {
             close(socket->fd);
         }
@@ -43,7 +43,7 @@ void network_socket_close(xenon_socket_t *socket) {
 }
 
 ssize_t network_read(xenon_socket_t *socket, void *buffer, size_t length) {
-    if (!socket || socket->fd < 0) {
+    if (socket == nullptr || socket->fd < 0) {
         errno = EBADF;
         return -1;
     }
@@ -57,7 +57,7 @@ ssize_t network_read(xenon_socket_t *socket, void *buffer, size_t length) {
 }
 
 ssize_t network_write(xenon_socket_t *socket, const void *buffer, size_t length) {
-    if (!socket || socket->fd < 0) {
+    if (socket == nullptr || socket->fd < 0) {
         errno = EBADF;
         return -1;
     }
@@ -71,7 +71,7 @@ ssize_t network_write(xenon_socket_t *socket, const void *buffer, size_t length)
 }
 
 bool network_set_nonblocking(xenon_socket_t *socket) {
-    if (!socket || socket->fd < 0) {
+    if (socket == nullptr || socket->fd < 0) {
         return false;
     }
 
@@ -84,7 +84,7 @@ bool network_set_nonblocking(xenon_socket_t *socket) {
 }
 
 bool network_set_keepalive(xenon_socket_t *socket) {
-    if (!socket || socket->fd < 0) {
+    if (socket == nullptr || socket->fd < 0) {
         return false;
     }
 
@@ -100,7 +100,7 @@ bool network_set_keepalive(xenon_socket_t *socket) {
 }
 
 bool network_set_nodelay(xenon_socket_t *socket) {
-    if (!socket || socket->fd < 0) {
+    if (socket == nullptr || socket->fd < 0) {
         return false;
     }
 
