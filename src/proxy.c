@@ -5,6 +5,7 @@
 #include <sys/epoll.h>
 #include <sys/resource.h>
 #include <sys/sendfile.h>
+#include <stdatomic.h>
 
 // Proxy context structure
 typedef struct proxy_context {
@@ -25,7 +26,7 @@ static _Atomic size_t active_connections = 0;
 static proxy_context_t *global_context = nullptr;
 
 // Initialize proxy with secure defaults
-int proxy_start(void) {
+[[nodiscard]] int proxy_start(void) {
     // Enforce resource limits
     struct rlimit nofile = {.rlim_cur = 1024, .rlim_max = 4096};
     if (setrlimit(RLIMIT_NOFILE, &nofile) < 0) {
@@ -102,6 +103,9 @@ void proxy_stop(void) {
         free(global_context->mem_pool.pool);
     }
 
+    free(global_context);
+    global_context = nullptr;
+}
     free(global_context);
     global_context = nullptr;
 }
